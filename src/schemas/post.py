@@ -1,7 +1,7 @@
-POST_SCHEMA = {
-    "type": "object",
-    "properties": {
-        "id": {"type": "number"},
-        "title": {"type": "string"},
-    }
-}
+from pydantic import BaseModel, validator
+
+
+class Post(BaseModel):
+    id: int
+    title: str
+
