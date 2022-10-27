@@ -36,7 +36,13 @@ class Response:
         object and compare it with received value from method params.
         """
         if isinstance(status_code, list):
-            assert self.response_status in status_code
+            assert self.response_status in status_code, self
         else:
-            assert self.response_status == status_code
+            assert self.response_status == status_code, self
         return self
+
+    def __str__(self):
+        return \
+            f'\nStatus code: {self.response_status} \n' \
+            f'Requested url: {self.response.url} \n' \
+            f'Response body: {self.response_json}'
