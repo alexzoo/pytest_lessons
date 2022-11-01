@@ -52,7 +52,7 @@ def test_delete_key(delete_key, get_player_generator):
 
 
 def test_inner_generator(get_player_generator):
-    object_to_test = get_player_generator.update_inner_generator(
-        'localize', PlayerLocalization('fr_FR')
+    object_to_test = get_player_generator.update_inner_value(
+        ['localize', 'fr', 'is', 'best'], PlayerLocalization('fr_FR')
     ).build()
     print(object_to_test)
