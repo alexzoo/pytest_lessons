@@ -1,5 +1,4 @@
 """
-Обычный конфигурационный файл, который должен быть в любом проекте :)
 Default configuration file, that should be in each project :)
 """
 
