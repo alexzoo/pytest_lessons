@@ -3,7 +3,7 @@ from src.enums.user_enums import Statuses
 from src.generators.player_localization import PlayerLocalization
 
 
-class Player(BuilderBaseClass):
+class PlayerGenerator(BuilderBaseClass):
 
     def __init__(self):
         super().__init__()
