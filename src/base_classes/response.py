@@ -4,7 +4,7 @@
 class Response:
 
     """
-    It's useful class that helps to save a lot of code during validatio
+    It's useful class that helps to save a lot of code during validation
     process in our tests. It receives response object and gets from it all
     values that should be validated. You can add additional methods into the
     Class if it needs for your project testing.
@@ -13,7 +13,8 @@ class Response:
     def __init__(self, response):
         self.parsed_object = None
         self.response = response
-        self.response_json = response.json().get('data')
+        self.response_json = response.json()
+        # self.response_json = response.json().get('data')
         self.response_status = response.status_code
 
     def validate(self, schema):

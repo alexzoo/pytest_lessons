@@ -3,11 +3,19 @@ import pytest
 from src.base_classes.response import Response
 from src.generators.player_localization import PlayerLocalization
 from src.schemas.user import User
+from src.base_classes.request import Request
+
+from configuration import users_url
 
 
 @pytest.mark.dev
 def test_getting_posts(get_users):
     Response(get_users).assert_status_code(200).validate(User)
+
+
+def test_get_users():
+    r = Request(users_url).get()
+    Response(r).assert_status_code(200).validate(User)
 
 
 @pytest.mark.parametrize('first_value, second_value, result', [
