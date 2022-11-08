@@ -1,4 +1,5 @@
 # from jsonschema import validate
+from pydantic import ValidationError
 
 
 class Response:
@@ -14,17 +15,20 @@ class Response:
         self.parsed_object = None
         self.response = response
         self.response_json = response.json()
-        # self.response_json = response.json().get('data')
         self.response_status = response.status_code
 
     def validate(self, schema):
-        if isinstance(self.response_json, list):
-            for item in self.response_json:
-                parsed_object = schema.parse_obj(item)
-                self.parsed_object = parsed_object
-        else:
-            schema.parse_obj(self.response_json)
-        return self
+        try:
+            if isinstance(self.response_json, list):
+                for item in self.response_json:
+                    parsed_object = schema.parse_obj(item)
+                    self.parsed_object = parsed_object
+            else:
+                schema.parse_obj(self.response_json)
+        except ValidationError:
+            raise AssertionError(
+                'Could not map received object to pydantic schema'
+            )
 
     def assert_status_code(self, status_code):
         """

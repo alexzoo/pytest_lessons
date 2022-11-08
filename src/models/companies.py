@@ -8,10 +8,7 @@ from src.models.base_models import BaseModel
 class Companies:
     _COMPANIES_URL = BASE_URL + '/api/companies/'
 
-    # def __init__(self):
-    #     self.schema = CompaniesSchema()
-
-    def get_companies(self, status: CompanyStatuses = 'ACTIVE', limit=3, offset=0):
+    def get_companies(self, status=CompanyStatuses.ACTIVE, limit=3, offset=0):
         """
         Get company list, uses filters
 
@@ -24,10 +21,8 @@ class Companies:
             'limit': limit,
             'offset': offset
         }
+
         return Request(self._COMPANIES_URL).get(params=params)
 
     def get_company_by_id(self):
         pass
-
-    # def validate_companies(self, response):
-    #     super().validate(response, self.schema)

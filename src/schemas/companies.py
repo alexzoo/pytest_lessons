@@ -17,9 +17,9 @@ class Data(BaseModel):
 
 
 class Meta(BaseModel):
-    limit: int
-    offset: int
-    total: int
+    limit: int = 1
+    offset: int = 0
+    total: int = 3
 
 
 class CompaniesSchema(BaseModel):
