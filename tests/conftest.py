@@ -50,3 +50,12 @@ def add_method(session, item):
 def get_add_method():
     return add_method
 
+
+@pytest.fixture
+def get_testing_scenarios(request):
+    if request.param == 'scenario_1':
+        return {'name': 'Alex'}
+    elif request.param == 'scenario_2':
+        return {'name': 'Anton'}
+    else:
+        return {'name': 'Sveta'}

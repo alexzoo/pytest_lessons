@@ -10,17 +10,12 @@ companies = Companies()
 
 
 def test_get_all_companies():
-    response = companies.get_companies()
-
-    res = Response(response)\
-        .assert_status_code(200)\
-        .validate(CompaniesSchema)
-    print(res)
+    companies.get_companies().assert_status_code(200).validate(CompaniesSchema)
 
 
 def test_get_company_with_limit():
-    response = companies.get_companies(limit=2).json()
-    validated_result = CompaniesSchema.parse_obj(response)
+    response = companies.get_companies(limit=2)
+    validated_result = CompaniesSchema.parse_obj(response.json)
     assert validated_result.meta.limit == 2
 
 
@@ -28,13 +23,16 @@ def test_get_company_with_limit():
     (CompanyStatuses.ACTIVE.value, CompanyStatuses.ACTIVE.value),
     (CompanyStatuses.BANKRUPT.value, CompanyStatuses.BANKRUPT.value),
     (CompanyStatuses.CLOSED.value, CompanyStatuses.CLOSED.value),
-])
+], ids=str)
 def test_get_company_filter_by_status(status, result):
-    response = companies.get_companies(status=status).json()
-    validated_result = CompaniesSchema.parse_obj(response)
+    response_json = companies.get_companies(status=status).json
+    validated_result = CompaniesSchema.parse_obj(response_json)
 
-    for res in validated_result.data:
-        assert res.company_status.value == result
+    for data in validated_result.data:
+        assert data.company_status.value == result
 
 
+@pytest.mark.parametrize('get_testing_scenarios', ['scenario_1'], indirect=True)
+def test_get_scenarios(get_testing_scenarios):
+    print(get_testing_scenarios)
 
